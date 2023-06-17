@@ -12,10 +12,13 @@
         android:theme="@style/Theme.MadrassaApplication"
         tools:targetApi="31">
         <activity
-            android:name=".EnterNewStudent"
+            android:name=".ViewStudentActivity"
             android:exported="false" />
         <activity
-            android:name=".Menu"
+            android:name=".EnterNewStudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-public class Menu extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
 
     Button newStudent, EnterRec, ViewRec;
@@ -28,7 +27,15 @@ public class Menu extends AppCompatActivity {
         newStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent I= new Intent(Menu.this,EnterNewStudent.class );
+                Intent I= new Intent(MenuActivity.this, EnterNewStudentActivity.class );
+                startActivity(I);
+            }
+        });
+
+        EnterRec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent I= new Intent(MenuActivity.this, ViewStudentActivity.class );
                 startActivity(I);
             }
         });

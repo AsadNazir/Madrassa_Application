@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EnterNewStudent extends AppCompatActivity {
+public class EnterNewStudentActivity extends AppCompatActivity {
 
     EditText studentName, age, Class;
     Button cancel, save;
@@ -23,6 +23,8 @@ public class EnterNewStudent extends AppCompatActivity {
         save=findViewById(R.id.saveBtn);
         cancel=findViewById(R.id.cancelBtn);
 
+
+        //Saving Student here
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,19 +36,19 @@ public class EnterNewStudent extends AppCompatActivity {
                    int Class_no = Integer.parseInt(Class.getText().toString());
 
                     if (age_no <= 0 || Class_no <= 0) {
-                        Toast.makeText(EnterNewStudent.this, "Age and class must be positive values", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EnterNewStudentActivity.this, "Age and class must be positive values", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    DBHandler dbHandler = new DBHandler(EnterNewStudent.this);
+                    DBHandler dbHandler = new DBHandler(EnterNewStudentActivity.this);
                     boolean success = dbHandler.insertNewStudent(name,Class_no, age_no);
 
                     if (success) {
                         // Data inserted successfully
-                        Toast.makeText(EnterNewStudent.this, "Student data saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EnterNewStudentActivity.this, "Student data saved successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         // Failed to insert data
-                        Toast.makeText(EnterNewStudent.this, "Failed to save student data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EnterNewStudentActivity.this, "Failed to save student data", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -57,6 +59,15 @@ public class EnterNewStudent extends AppCompatActivity {
                 }
 
 
+            }
+        });
+
+
+        //Cancel here
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
