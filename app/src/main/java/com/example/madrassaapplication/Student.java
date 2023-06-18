@@ -6,7 +6,12 @@ public class Student {
     private int id;
     private int age;
 
-
+    public Student(String name, int studentClass, int id, int age) {
+        this.name = name;
+        this.studentClass = studentClass;
+        this.id = id;
+        this.age = age;
+    }
 
     public String getName() {
         return name;

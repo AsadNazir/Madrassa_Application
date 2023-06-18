@@ -65,7 +65,85 @@ public class DBHandler extends SQLiteOpenHelper {
         
     }
 
-    
+
+    //getting all students
+    public ArrayList<Student> getAllStudents() {
+        ArrayList<Student> studentList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.query("students", null, null, null, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int studentIdIndex = cursor.getColumnIndex("student_id");
+                int nameIndex = cursor.getColumnIndex("name");
+                int classIndex = cursor.getColumnIndex("class");
+                int ageIndex = cursor.getColumnIndex("age");
+
+                do {
+                    int studentId = cursor.getInt(studentIdIndex);
+                    String name = cursor.getString(nameIndex);
+                    int studentClass = cursor.getInt(classIndex);
+                    int age = cursor.getInt(ageIndex);
+
+                    Student student = new Student(name, studentClass,studentId, age);
+                    studentList.add(student);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return studentList;
+    }
+
+
+
+    //getting students by name
+    public ArrayList<Student> getStudentByName(String name) {
+        ArrayList<Student> matchingStudents = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String selection = "name=?";
+            String[] selectionArgs = {name};
+
+            cursor = db.query("students", null, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int studentIdIndex = cursor.getColumnIndex("student_id");
+                int nameIndex = cursor.getColumnIndex("name");
+                int classIndex = cursor.getColumnIndex("class");
+                int ageIndex = cursor.getColumnIndex("age");
+
+                do {
+                    int studentId = cursor.getInt(studentIdIndex);
+                    String studentName = cursor.getString(nameIndex);
+                    int studentClass = cursor.getInt(classIndex);
+                    int age = cursor.getInt(ageIndex);
+
+                    Student student = new Student(name, studentClass,studentId, age);
+                    matchingStudents.add(student);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return matchingStudents;
+    }
+
+
 
 
 

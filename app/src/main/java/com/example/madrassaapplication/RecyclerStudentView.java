@@ -3,6 +3,7 @@ package com.example.madrassaapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,20 +30,6 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
 
         final MyVH viewHolder = new MyVH(itemView);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = viewHolder.getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    // Retrieve the clicked item from the list
-                    //Friends clickedFriend = friendsList.get(position);
-
-                    // Perform your desired action here
-                    Toast.makeText(view.getContext(), "Clicked: " + position, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         return viewHolder;
     }
 
@@ -54,6 +41,14 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
             holder.Class.setText(Integer.toString(holder.S.getStudentClass()));
             holder.name.setText(holder.S.getName());
             holder.age.setText(Integer.toString(holder.S.getAge()));
+
+        // Add click listener to ViewStudentRecord button
+        holder.ViewStudentRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Clicked position: " + Integer.toString(holder.S.getId()), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -71,6 +66,7 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
         TextView name;
         TextView Class;
         TextView age;
+        Button EnterStudentRecord, ViewStudentRecord;
         int id;
         Student S;
 
@@ -81,6 +77,9 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
             name=itemView.findViewById(R.id.textViewFriendName);
             Class = itemView.findViewById(R.id.textViewClass);
             age=itemView.findViewById(R.id.textViewAge);
+            EnterStudentRecord=itemView.findViewById(R.id.EnterStudentRecordBtn);
+            ViewStudentRecord = itemView.findViewById(R.id.ViewStudentRecordBtn);
+
         }
     }
 
