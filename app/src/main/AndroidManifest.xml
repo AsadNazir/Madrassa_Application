@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MadrassaApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ViewHistory"
+            android:exported="false" />
+        <activity
             android:name=".ViewStudentActivity"
             android:exported="false" />
         <activity

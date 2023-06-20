@@ -1,10 +1,29 @@
 package com.example.madrassaapplication;
 
+import java.util.ArrayList;
+
 public class Student {
     private String name;
     private int studentClass;
     private int id;
     private int age;
+    ArrayList<DailyTask> history = null;
+
+    public ArrayList<DailyTask> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<DailyTask> history) {
+        this.history = history;
+    }
+
+    public Student(String name, int studentClass, int id, int age, ArrayList<DailyTask> history) {
+        this.name = name;
+        this.studentClass = studentClass;
+        this.id = id;
+        this.age = age;
+        this.history = history;
+    }
 
     public Student(String name, int studentClass, int id, int age) {
         this.name = name;

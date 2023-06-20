@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.madrassaapplication.R.id;
 
@@ -20,8 +24,10 @@ import java.util.ListIterator;
 public class ViewStudentActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    Button SearchStudentBtn, CancelSearchBtn;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
+    EditText SearchField;
     List<Student> Slist = new ArrayList<Student>();
 
     @Override
@@ -32,32 +38,62 @@ public class ViewStudentActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_view_student);
 
-//        //recyclerView = findViewById(R.id.StudentViewRecycler);
-//        Student S1 = new Student("Asad", 6,18);
-//        Student S2 = new Student("Asad2", 7,18);
-//        Student S3 = new Student("Asad3", 7,18);
-//        Student S4 = new Student("Asad4", 4,18);
-//
-//        Slist.addAll(Arrays.asList(new Student[]{S1,S2,S3,S4,S4,S1,S2,S3,S4,S1,S2,S3,S1,S1,S1}));
 
             DBHandler Db = new DBHandler(this);
             Slist=Db.getAllStudents();
 
 
+            //Getting views Over here
+            SearchStudentBtn = findViewById(R.id.SearchBtn);
+            CancelSearchBtn = findViewById((R.id.cancelSearchBtn));
             recyclerView = findViewById(R.id.StudentViewRecycler);
+            SearchField = findViewById(R.id.SearchField);
 
 
+            //Search On click listner
+            SearchStudentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   String searchData= SearchField.getText().toString();
+
+                   if(searchData.equalsIgnoreCase(""))
+                   {
+                       Toast.makeText(ViewStudentActivity.this, "Please enter some text", Toast.LENGTH_SHORT).show();
+                       return;
+                   }
+
+                   Slist=Db.getStudentByName(searchData);
+
+                    adapter = new RecyclerStudentView(Slist) ;
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+
+                }
+            });
+
+//            Cancel Button on click listener
+            CancelSearchBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Slist=Db.getAllStudents();
+                    SearchField.setText("");
+                    adapter = new RecyclerStudentView(Slist) ;
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            //Sir ka recycler view ka code samjh mei to wasa hi nhi aya but likh dia
+            //---------------------------------------------------------
             recyclerView.setHasFixedSize(true);
 
-            //LinearLayoutManager GridLayoutManager
             layoutManager = new LinearLayoutManager(ViewStudentActivity.this);
-//        layoutManager = new LinearLayoutManager(MainActivity.this,
-//                LinearLayoutManager.HORIZONTAL,
-//                false);
+
             recyclerView.setLayoutManager(layoutManager);
 
             adapter = new RecyclerStudentView(Slist) ;
             recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
         }
         catch (Exception E)
@@ -66,7 +102,7 @@ public class ViewStudentActivity extends AppCompatActivity {
         }
 
 
-
+//--------------------------------------------
 
     }
 }

@@ -38,9 +38,9 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
             holder.S=SList.get(position);
 
             Integer.toString(holder.S.getStudentClass());
-            holder.Class.setText(Integer.toString(holder.S.getStudentClass()));
+            holder.Class.setText("Class : "+Integer.toString(holder.S.getStudentClass()));
             holder.name.setText(holder.S.getName());
-            holder.age.setText(Integer.toString(holder.S.getAge()));
+            holder.age.setText("Age :"+Integer.toString(holder.S.getAge()));
 
         // Add click listener to ViewStudentRecord button
         holder.ViewStudentRecord.setOnClickListener(new View.OnClickListener() {
