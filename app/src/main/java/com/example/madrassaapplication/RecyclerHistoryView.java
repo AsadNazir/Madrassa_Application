@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerHistoryView extends RecyclerView.Adapter<RecyclerHistoryView.MyVH> {
 
@@ -42,10 +44,15 @@ public class RecyclerHistoryView extends RecyclerView.Adapter<RecyclerHistoryVie
 
         holder.Sabqi.setText(Integer.toString(holder.D.getSabaqi()));
         holder.Manzil.setText(Integer.toString(holder.D.getMazil()));
-        holder.Para.setText(Integer.toString(holder.D.getPara()));
-        holder.StartingVerse.setText(Integer.toString(holder.D.getStartingVerse()));
+        holder.Para.setText("Para No :" +Integer.toString(holder.D.getPara()));
+        holder.StartingVerse.setText(Integer.toString(holder.D.getStartingVerse())+" - ");
         holder.Endingverse.setText(Integer.toString(holder.D.getEndingVerse()));
-        holder.date.setText(holder.D.getD().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
+        ;
+        holder.date.setText(dateFormat.format(holder.D.getD()).toString());
+
+
+        holder.Surah.setText(holder.D.getSurahName());
     }
 
 
@@ -60,7 +67,8 @@ public class RecyclerHistoryView extends RecyclerView.Adapter<RecyclerHistoryVie
     public class MyVH extends RecyclerView.ViewHolder
     {
         TextView Para;
-        TextView StartingVerse, Endingverse, Surah;
+        TextView Surah;
+        TextView StartingVerse, Endingverse;
         TextView Sabqi;
         TextView Manzil;
         TextView date;
@@ -72,6 +80,7 @@ public class RecyclerHistoryView extends RecyclerView.Adapter<RecyclerHistoryVie
         public MyVH(@NonNull View itemView) {
             super(itemView);
 
+            Surah=itemView.findViewById(R.id.textViewSurahName);
             Para = itemView.findViewById(R.id.textViewParaNo);
             StartingVerse=itemView.findViewById(R.id.textViewStartingVerse);
             Endingverse=itemView.findViewById(R.id.textViewEndingVerse);

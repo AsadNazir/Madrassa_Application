@@ -1,5 +1,7 @@
 package com.example.madrassaapplication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import java.util.List;
 public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentView.MyVH> {
 
     List<Student> SList;
-     public RecyclerStudentView (List<Student> l)
+    Context context;
+     public RecyclerStudentView (List<Student> l, Context context)
     {
+        this.context = context;
         SList=l;
     }
 
@@ -46,7 +50,10 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
         holder.ViewStudentRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Clicked position: " + Integer.toString(holder.S.getId()), Toast.LENGTH_SHORT).show();
+                // Start the activity
+                Intent intent = new Intent(context, ViewHistory.class);
+                intent.putExtra("id", holder.S.getId());
+                context.startActivity(intent);
             }
         });
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,18 +26,20 @@ public class ViewStudentActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button SearchStudentBtn, CancelSearchBtn;
+
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     EditText SearchField;
     List<Student> Slist = new ArrayList<Student>();
-
+    Context C;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         try {
 
-        setContentView(R.layout.activity_view_student);
+            Context C = this;
+            setContentView(R.layout.activity_view_student);
 
 
             DBHandler Db = new DBHandler(this);
@@ -64,7 +67,7 @@ public class ViewStudentActivity extends AppCompatActivity {
 
                    Slist=Db.getStudentByName(searchData);
 
-                    adapter = new RecyclerStudentView(Slist) ;
+                    adapter = new RecyclerStudentView(Slist,C) ;
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
@@ -75,9 +78,12 @@ public class ViewStudentActivity extends AppCompatActivity {
             CancelSearchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //Testing purpose only
+                    Db.insertRandomRecordsForStudentOne();
                     Slist=Db.getAllStudents();
                     SearchField.setText("");
-                    adapter = new RecyclerStudentView(Slist) ;
+                    adapter = new RecyclerStudentView(Slist,C) ;
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
@@ -91,7 +97,7 @@ public class ViewStudentActivity extends AppCompatActivity {
 
             recyclerView.setLayoutManager(layoutManager);
 
-            adapter = new RecyclerStudentView(Slist) ;
+            adapter = new RecyclerStudentView(Slist,C) ;
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 

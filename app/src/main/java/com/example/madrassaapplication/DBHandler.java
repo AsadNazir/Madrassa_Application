@@ -7,8 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -48,7 +52,9 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "DROP TABLE IF EXISTS " + "students";
+        String sql2 = "DROP TABLE IF EXISTS " + "records";
         db.execSQL(sql);
+        db.execSQL(sql2);
         onCreate(db);
     }
 
@@ -163,7 +169,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values1 = new ContentValues();
-        values1.put("studentId", 1);
+        values1.put("studentId",0);
         values1.put("Manzil", 3);
         values1.put("Sabqi", 1);
         values1.put("ParaNo", 5);
@@ -187,6 +193,61 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert("records", null, values2);
 
         db.close();
+    }
+
+    public ArrayList<DailyTask> getStudentRecord(int id) {
+        ArrayList<DailyTask> studentRecords = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String[] columns = {"Manzil", "Sabqi", "ParaNo", "surahName", "startingVerse", "endingVerse", "lesson_date"};
+            String selection = "studentId=?";
+            String[] selectionArgs = {String.valueOf(id)};
+
+            cursor = db.query("records", columns, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int manzilIndex = cursor.getColumnIndex("Manzil");
+                int sabqiIndex = cursor.getColumnIndex("Sabqi");
+                int paraIndex = cursor.getColumnIndex("ParaNo");
+                int surahNameIndex = cursor.getColumnIndex("surahName");
+                int startingVerseIndex = cursor.getColumnIndex("startingVerse");
+                int endingVerseIndex = cursor.getColumnIndex("endingVerse");
+                int dateIndex = cursor.getColumnIndex("lesson_date");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                do {
+                    int manzil = cursor.getInt(manzilIndex);
+                    int sabqi = cursor.getInt(sabqiIndex);
+                    int para = cursor.getInt(paraIndex);
+                    String surahName = cursor.getString(surahNameIndex);
+                    int startingVerse = cursor.getInt(startingVerseIndex);
+                    int endingVerse = cursor.getInt(endingVerseIndex);
+                    String dateString = cursor.getString(dateIndex);
+
+                    Date date;
+                    try {
+                        date = dateFormat.parse(dateString);
+                    } catch (ParseException e) {
+                        date = new Date();
+                    }
+
+                    DailyTask task = new DailyTask(manzil, sabqi, para, surahName, startingVerse, endingVerse);
+                    task.setD(date);
+                    studentRecords.add(task);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return studentRecords;
     }
 
 

@@ -38,6 +38,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HistoryRecyclerView"
         android:layout_width="409dp"
         android:layout_height="663dp"
         android:layout_marginTop="32dp"
