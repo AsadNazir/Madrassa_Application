@@ -22,7 +22,6 @@ public class MenuActivity extends AppCompatActivity {
 
         newStudent = findViewById(R.id.newStuBtn);
         EnterRec = findViewById(R.id.enterRecordBtn);
-        ViewRec = findViewById(R.id.viewRecordBtn);
 
         newStudent.setOnClickListener(new View.OnClickListener() {
             @Override

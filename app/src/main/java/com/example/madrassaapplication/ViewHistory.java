@@ -60,8 +60,8 @@ public class ViewHistory extends AppCompatActivity {
 
             //Putting the data from intent
             name.setText(nameIntent);
-            Class.setText("Class : "+Integer.toString(classIntent));
-            age.setText("Age" + Integer.toString(AgeIntent));
+            Class.setText("Class :\t"+Integer.toString(classIntent));
+            age.setText("Age :\t" + Integer.toString(AgeIntent));
 
             //Getting history list
             DList = Db.getStudentRecord(id);

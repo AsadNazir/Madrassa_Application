@@ -11,7 +11,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     Button github, gotoApp;
-    final private String linkToRepo ="https://github.com/AsadNazir";
+    final private String linkToRepo ="https://github.com/AsadNazir/Madrassa_Application";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

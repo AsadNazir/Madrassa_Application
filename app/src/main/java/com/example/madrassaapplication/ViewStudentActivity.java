@@ -80,7 +80,8 @@ public class ViewStudentActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     //Testing purpose only
-                    Db.insertRandomRecordsForStudentOne();
+//                    Db.insertRandomRecordsForStudentOne();
+
                     Slist=Db.getAllStudents();
                     SearchField.setText("");
                     adapter = new RecyclerStudentView(Slist,C) ;

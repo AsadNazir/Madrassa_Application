@@ -44,8 +44,8 @@ public class RecyclerHistoryView extends RecyclerView.Adapter<RecyclerHistoryVie
 
         holder.Sabqi.setText(Integer.toString(holder.D.getSabaqi()));
         holder.Manzil.setText(Integer.toString(holder.D.getMazil()));
-        holder.Para.setText("Para No :" +Integer.toString(holder.D.getPara()));
-        holder.StartingVerse.setText(Integer.toString(holder.D.getStartingVerse())+" - ");
+        holder.Para.setText(Integer.toString(holder.D.getPara()));
+        holder.StartingVerse.setText("\t"+Integer.toString(holder.D.getStartingVerse())+" - ");
         holder.Endingverse.setText(Integer.toString(holder.D.getEndingVerse()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
         ;

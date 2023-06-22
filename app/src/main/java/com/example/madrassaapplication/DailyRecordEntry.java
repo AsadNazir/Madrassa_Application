@@ -150,7 +150,6 @@ public class DailyRecordEntry extends AppCompatActivity {
                     }
                     else {
                         newManzil=Dold.getMazil();
-                        newSabqi=Dold.getSabaqi();
                     }
 
                     // To check if the CheckBox is checked or not
@@ -166,6 +165,7 @@ public class DailyRecordEntry extends AppCompatActivity {
                     int parahTmp= Integer.parseInt(Para.getText().toString());
                     int endV = Integer.parseInt(Everse.getText().toString());
                     int startV =Integer.parseInt(Sverse.getText().toString());
+                    newSabqi=parahTmp;
 
                     if(parahTmp == 0)
                     {

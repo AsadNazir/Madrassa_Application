@@ -23,12 +23,6 @@
         android:text="Add New Student" />
 
     <Button
-        android:id="@+id/viewRecordBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Record" />
-
-    <Button
         android:id="@+id/enterRecordBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

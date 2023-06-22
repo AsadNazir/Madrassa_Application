@@ -21,7 +21,7 @@
         android:id="@+id/SearchField"
         android:layout_width="250dp"
         android:layout_height="38dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="132dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:text="Button"
+        android:backgroundTint="#9A0202"
+        android:text="Cancel"
         app:layout_constraintEnd_toEndOf="@+id/SearchField"
         app:layout_constraintTop_toBottomOf="@+id/SearchField" />
 
@@ -46,7 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:text="Button"
+        android:backgroundTint="#017B06"
+        android:text="Search"
         app:layout_constraintEnd_toStartOf="@+id/cancelSearchBtn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/SearchField"

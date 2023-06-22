@@ -20,21 +20,23 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/HistoryClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Age"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/HistoryAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="      "
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
