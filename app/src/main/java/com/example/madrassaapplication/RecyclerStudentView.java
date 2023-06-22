@@ -53,6 +53,19 @@ public class RecyclerStudentView extends RecyclerView.Adapter<RecyclerStudentVie
                 // Start the activity
                 Intent intent = new Intent(context, ViewHistory.class);
                 intent.putExtra("id", holder.S.getId());
+                intent.putExtra("name",holder.S.getName());
+                intent.putExtra("class",holder.S.getStudentClass());
+                intent.putExtra("age",holder.S.getStudentClass());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.EnterStudentRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the activity
+                Intent intent = new Intent(context, DailyRecordEntry.class);
+                intent.putExtra("id", holder.S.getId());
                 context.startActivity(intent);
             }
         });

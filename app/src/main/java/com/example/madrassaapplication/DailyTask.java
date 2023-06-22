@@ -34,6 +34,16 @@ public class DailyTask {
         this.endingVerse = endingVerse;
     }
 
+    public DailyTask(int mazil, int sabaqi, int para, Date d, String surahName, int startingVerse, int endingVerse) {
+        Mazil = mazil;
+        Sabaqi = sabaqi;
+        this.para = para;
+        D = d;
+        SurahName = surahName;
+        this.startingVerse = startingVerse;
+        this.endingVerse = endingVerse;
+    }
+
     String SurahName;
 
     public int getMazil() {

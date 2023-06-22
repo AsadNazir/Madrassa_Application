@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MadrassaApplication"
         tools:targetApi="31">
         <activity
+            android:name=".DailyRecordEntry"
+            android:exported="false" />
+        <activity
             android:name=".ViewHistory"
             android:exported="false" />
         <activity

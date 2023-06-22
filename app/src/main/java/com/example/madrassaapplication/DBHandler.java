@@ -250,5 +250,76 @@ public class DBHandler extends SQLiteOpenHelper {
         return studentRecords;
     }
 
+    public DailyTask getLatestRecordById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        DailyTask latestRecord = null;
+
+        try {
+            String[] columns = {"Manzil", "Sabqi", "ParaNo", "surahName", "startingVerse", "endingVerse", "lesson_date"};
+            String selection = "studentId=?";
+            String[] selectionArgs = {String.valueOf(id)};
+            String orderBy = "lesson_date DESC";
+            String limit = "1";
+
+            cursor = db.query("records", columns, selection, selectionArgs, null, null, orderBy, limit);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int manzilIndex = cursor.getColumnIndex("Manzil");
+                int sabqiIndex = cursor.getColumnIndex("Sabqi");
+                int paraIndex = cursor.getColumnIndex("ParaNo");
+                int surahNameIndex = cursor.getColumnIndex("surahName");
+                int startingVerseIndex = cursor.getColumnIndex("startingVerse");
+                int endingVerseIndex = cursor.getColumnIndex("endingVerse");
+                int dateIndex = cursor.getColumnIndex("lesson_date");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                int manzil = cursor.getInt(manzilIndex);
+                int sabqi = cursor.getInt(sabqiIndex);
+                int para = cursor.getInt(paraIndex);
+                String surahName = cursor.getString(surahNameIndex);
+                int startingVerse = cursor.getInt(startingVerseIndex);
+                int endingVerse = cursor.getInt(endingVerseIndex);
+                String dateString = cursor.getString(dateIndex);
+
+                Date date;
+                try {
+                    date = dateFormat.parse(dateString);
+                } catch (ParseException e) {
+                    date = new Date();
+                }
+
+                latestRecord = new DailyTask(manzil, sabqi, para, surahName, startingVerse, endingVerse);
+                latestRecord.setD(date);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return latestRecord;
+    }
+
+    public void insertRecord(int studentId, DailyTask dailyTask) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("studentId", studentId);
+        values.put("Manzil", dailyTask.getMazil());
+        values.put("Sabqi", dailyTask.getSabaqi());
+        values.put("ParaNo", dailyTask.getPara());
+        values.put("startingVerse", dailyTask.getStartingVerse());
+        values.put("endingVerse", dailyTask.getEndingVerse());
+        values.put("surahName", dailyTask.getSurahName());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String dateString = dateFormat.format(dailyTask.getD());
+        values.put("lesson_date", dateString);
+
+        db.insert("records", null, values);
+        db.close();
+    }
 
 };
